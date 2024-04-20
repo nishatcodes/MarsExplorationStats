@@ -1,0 +1,125 @@
+---
+title: "Documentation"
+author: "Nishat Islam"
+date: "2024-03-30"
+output:
+  html_document: default
+---
+# Description
+## The mars() function implements Multivariate Adaptive Regression Splines (MARS), a flexible method for regression modeling that can capture complex nonlinear relationships and interactions between variables.
+
+# Usage
+## mars(formula, data, control = mars.control())
+
+# Arguments
+## formula: A smbolic description of the model to be fitted, indicating the response variable and predictors.
+## data: The dataset containing the variables mentioned in the formula.
+## control: Optional. A list of parameters that control the fitting process. Default settings are applied if not specified.
+
+# Details
+## The mars() function fits a MARS model to the specified data. MARS is a non-parametric regression technique that builds models by fitting piecewise linear regressions. The function automatically identifies interaction terms and can model complex, high-dimensional datasets. The fitting process involves two main steps: a forward pass where terms are added to the model to reduce the residual sum of squares, and a backward pass where the least effective terms are pruned.
+
+# Value
+## Returns an object of class mars, which contains the fitted MARS model. This object includes components such as:
+
+### coefficients: The model coefficients.
+### terms: A list of model terms, including both basis functions and interactions.
+### call: The matched call.
+
+# Author
+## Nishat Islam
+
+# References
+## Friedman, J.H. (1991). Multivariate Adaptive Regression Splines. The Annals of Statistics, 19(1), 1-67.
+
+# See Also
+## predict.mars(): Predict method for MARS models.
+## summary.mars(): Summary method for MARS model objects.
+## plot.mars(): Plot method for diagnostic plots of MARS model residuals.
+## print.mars(): ncluding the original function call and the coefficients for each of the basis functions in the model. 
+## anova.mars(): ANOVA for MARS Model Objects
+
+# Examples
+## test1 dataset of mtcars
+```{r}
+library(devtools)
+load_all()
+library(mars)
+library(ISLR)
+library(MASS)
+
+# test1
+data("mtcars")
+mc1 = mars.control(Mmax = 10)
+fit1 <- mars(mpg ~ wt + hp, data = mtcars, control=mc1)
+predict1 = predict(fit1)
+predict1
+summary.mars(fit1)
+anova.mars(fit1)
+plot.mars(fit1)
+print.mars(fit1)
+
+```
+
+## test2 dataset for Air Quality
+```{r}
+#test2
+data("airquality")
+# Clean the dataset to remove NA values for simplicity
+airquality_clean <- na.omit(airquality)
+
+mc_airquality = mars.control(Mmax = 10)
+fit_airquality <- mars(Ozone ~ Solar.R + Wind + Temp, data = airquality_clean, control=mc_airquality)
+predict_airquality = predict(fit_airquality)
+predict_airquality
+summary.mars(fit_airquality)
+anova.mars(fit_airquality)
+plot.mars(fit_airquality)
+print.mars(fit_airquality)
+
+```
+
+## test3 dataset of gapminder
+```{r}
+#test3
+# Load the gapminder dataset
+if (!requireNamespace("gapminder", quietly = TRUE)) {
+  install.packages("gapminder")
+}
+library(gapminder)
+data("gapminder")
+
+gapminder_2007 <- subset(gapminder, year == 2007)
+
+# Setting control parameters for the MARS model
+mc_gapminder <- mars.control(Mmax=10)
+
+# Fitting the MARS model to predict life expectancy based on GDP per capita and population
+fit_gapminder <- mars(lifeExp ~ gdpPercap + pop, data=gapminder_2007, control=mc_gapminder)
+
+# Making predictions with the fitted model
+predict_gapminder <- predict(fit_gapminder)
+
+# Displaying predictions
+predict_gapminder
+
+# Summarizing the fitted model
+summary.mars(fit_gapminder)
+
+# Analyzing the model's components with ANOVA
+anova.mars(fit_gapminder)
+
+# Plotting the MARS model
+plot.mars(fit_gapminder)
+
+# Printing the model's details
+print.mars(fit_gapminder)
+
+
+```
+
+
+
+
+
+
