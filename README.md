@@ -1,4 +1,6 @@
-Nishat Islam Student Id : 301401538
+HeLLO,
+
+My name is Nishat and I have created my own Mars packagae
 
 My R folder contains six R files:
 
