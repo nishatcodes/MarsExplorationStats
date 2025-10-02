@@ -1,6 +1,6 @@
-HeLLO,
+Hello,
 
-My name is Nishat and I have created my own Mars packagae
+My name is Nishat and I have created my own Mars:Multivariate Adaptive Regression Splines packagae
 
 My R folder contains six R files:
 
