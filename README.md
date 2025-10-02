@@ -1,6 +1,6 @@
 Hello,
 
-My name is Nishat and I have created my own Mars:Multivariate Adaptive Regression Splines packagae
+My name is Nishat and I have created my own Multivariate Adaptive Regression Splines (MARS) packagae
 
 My R folder contains six R files:
 
